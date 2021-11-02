@@ -1,0 +1,75 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the footer of the site/application.
+// -----------------------------------------------------------------------------
+/*--- footer ---*/
+
+footer {
+	width: 100%;
+	padding: 55px 0 65px;
+	background: color('brand-secondary');
+
+	@include breakpoint(767px) {
+		padding: 60px 0;
+	}
+
+	.footer-logo {
+		width: 220px;
+		@include breakpoint(992px) {
+			width: 275px;
+		}
+	}
+
+	@include breakpoint(767px) {
+		.footer-menu, .single-menu:first-child {
+			padding-bottom: 60px;
+		}
+		.social-part {
+			padding-bottom: 50px;
+		}
+	}
+
+	.footer-menu {
+		.widget_nav_menu {
+			width: 100%;
+		}
+
+		ul {
+			list-style: none;
+			margin: 0;
+			padding: 0;
+
+			li {
+				padding: 5px 0;
+			}
+		}
+
+		a {
+			color: color('white');
+			font-size: 16px;
+      font-weight: 300;
+
+			&:hover {
+				color: color('brand-primary');
+			}
+		}
+
+		li.current_page_item a,
+		li.current-menu-item a {
+			color: color('brand-primary');
+		}
+	}
+}
+
+
+.d-desktop-none {
+	display: none;
+}
+
+@include breakpoint(767px) {
+	.d-mobile-block {
+		display: block;
+	}
+	.d-mobile-none {
+		display: none !important;
+	}
+}

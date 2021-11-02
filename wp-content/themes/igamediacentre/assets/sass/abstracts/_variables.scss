@@ -1,0 +1,171 @@
+// -----------------------------------------------------------------------------
+// Theme variables.
+// -----------------------------------------------------------------------------
+
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&family=Roboto:wght@100;300;400;500;700;900&display=swap');
+
+// Regular ( Roboto ) font family
+$font-base: 'Roboto', sans-serif !default;
+
+// Header (Roboto) font family
+$font-header: 'Roboto', sans-serif !default;
+
+$font-other: 'Oswald', sans-serif !default;
+
+//body contect text size
+$font-size-base: 18px !default;
+$font-size-small: $font-size-base - 2 !default;
+$font-size-large: $font-size-base + 2 !default;
+$colors: (
+	'brand-primary-light': #E4291B,
+	'brand-primary': #E4291B,
+	'brand-primary-dark': #E4291B,
+
+	'brand-secondary-light': #30302F,
+	'brand-secondary': #30302F,
+	'brand-secondary-dark': #30302F,
+
+	'gray': #BAB8B3,
+	'white': #fff,
+	'black': #000,
+	'error': #f00,
+	'warning': #ffae42,
+	'success': #008000,
+);
+
+
+$colormap: ();
+@each $name, $color in $colors {
+	$generated: (
+		'base': $color,
+	);
+	$colormap: map-merge($colormap, ($name: $generated));
+}
+@function color($color, $type: 'base') {
+	@if map-has-key($colormap, $color) && map-has-key(map-get($colormap, $color), $type) {
+		$result: map-get(map-get($colormap, $color), $type);
+	}
+	@return $result;
+}
+//
+
+// sticky sidebar positioning
+$desktopPosition: 200px;
+$1024Position: 160px;
+$992Position: 150px;
+
+/** General appointment btn */
+$appbtnBG: color('brand-primary');
+$appbtnBorder: color('brand-primary');
+$appbtnText: color('white');
+$appbtnBGHover: color('brand-secondary');
+$appbtnBorderHover: color('brand-secondary');
+$appbtnTextHover: color('white');
+
+// breadcrumb variables
+$breadCrumbBG: color('brand-secondary');
+$breadCrumbText: color('white');
+$breadCrumbHover: color('brand-primary');
+
+// Heading font size
+$font-size-h1: 37.32px !default;
+$font-size-h2: 31.10px !default;
+$font-size-h3: 25.92px !default;
+$font-size-h4: 21.60px !default;
+$font-size-h5: 18px !default;
+$font-size-h6: 17px !default;
+
+// Heading Typo
+$headings-font-family: $font-header !default;
+$headings-font-weight: 700 !default;
+$headings-line-height: 1.4 !default;
+
+/** theme border customization */
+$border-radius: 6px;
+$border-size: 2px;
+$border-style: solid;
+$border-color: color('brand-primary');
+
+/** header quick links buttons variable */
+$headerButtonPadding : 10px 20px;
+$headerButtonRadius: $border-radius;
+$headerButtonFont: $font-header;
+
+// Forms - default form styling
+$label-color: color('black');
+$label-font-weight: 400;
+$label-font-family: $font-base;
+$label-font-size: $font-size-small;
+$input-bg: color('white');
+$input-height: 44px;
+$input-color: color('black');
+$input-color-placeholder: color('brand-secondary');
+$input-font-size: $font-size-base;
+$input-font-family: $font-base;
+$input-font-weight: 400;
+$input-radius: $border-radius;
+$input-border-style: $border-style;
+$input-border-size: $border-size;
+$input-border-color: color('black');
+$input-border-color-focus: color('brand-primary');
+$textarea-height-base: 170px;
+$button-bg: color('black');
+$button-color: color('white');
+$button-hover-bg: color('brand-primary');
+$button-hover-color: color('white');
+$button-font-size: 16px;
+$button-font-weight: 700;
+$button-font-case: uppercase;
+$button-height: 44px;
+$button-border-size: $border-size;
+$button-border-style: $border-style;
+$button-border-color: color('black');
+$button-border-color-focus: color('brand-primary');
+$button-radius: $border-radius;
+
+ //Container's maximum width
+$wrapper-width: 1240px !default;
+
+//text-transform property
+$texttransform: (
+	"uppercase",
+	"capitalize",
+	"lowercase",
+	"none"
+);
+
+// spacing : padding and margin
+$spaceamounts: (
+	0,
+	5,
+	10,
+	15,
+	20,
+	30,
+);
+
+// text alignment
+$textalign: (
+	"left",
+	"right",
+	"center",
+	"justify"
+);
+
+// media query breakpoints.
+$breakpoints: (
+	'1400px': 1400px,
+	'1200': 1200px,
+	'1024': 1024px,
+	'992': 992px,
+	'767': 767px,
+	'640': 640px,
+	'568': 568px,
+	'480': 480px,
+	'350': 350px,
+);
+
+
+/** social buttons in footer */
+$footerSocialColor: color('white');
+$footerSocialColorHover: color('brand-primary');

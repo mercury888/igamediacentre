@@ -1,0 +1,71 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the button component.
+// -----------------------------------------------------------------------------
+
+
+body.logged-in header {
+	top: 32px;
+}
+
+.btn-center {
+	text-align: center;
+}
+
+.read-more {
+	cursor: pointer;
+	display: inline-block;
+	margin-top: 0;
+	padding: 13px 25px;
+	text-transform: uppercase;
+	border-radius: $border-radius;
+	border-width: $border-size;
+	border-style: $border-style;
+	border-color: $border-color;
+	font-family: $font-other;
+	font-size: 16px;
+	font-weight: 500;
+	background: color('brand-primary');
+	color: color('white');
+	-webkit-transition: 0.5s ease all;
+	-o-transition: 0.5s ease all;
+	transition: 0.5s ease all;
+	letter-spacing: 0.51px;
+	line-height: 1.15;
+
+	@include breakpoint(767px) {
+		padding: 13px 22px;
+	}
+
+	&:focus,
+	&:hover,
+	&.primary {
+		border-color: color('brand-primary');
+		background: transparent;
+		color: color('brand-primary');
+	}
+
+	&.secondary,
+	&.hover-primary:hover {
+		border-color: color('brand-primary');
+		background: color('brand-primary');
+		color: color('white');
+	}
+
+	&.white,
+	&.hover-white:hover {
+		border-color: color('white');
+		background: transparent;
+		color: color('white');
+	}
+
+	@media (min-width: 1200px) {
+		&.btn-lg {
+			padding: 14px 26px;
+			font-size: 110%;
+		}
+		&.btn-xl {
+			padding: 16px 30px;
+			font-size: 120%;
+		}
+	}
+}

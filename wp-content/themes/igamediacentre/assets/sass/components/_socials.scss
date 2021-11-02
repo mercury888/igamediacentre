@@ -1,0 +1,50 @@
+/** social media */
+
+.socialmedialinks {
+	ul {
+		padding: 0;
+		margin: 0;
+	}
+
+	li {
+		list-style: none;
+		display: flex;
+
+		a {
+			padding: 10px 0;
+			border-radius: 100%;
+			display: block;
+			line-height: 0;
+	    display: flex;
+    	align-items: center;
+			font-weight: 300;
+
+			span {
+				margin-left: 20px;
+				color: color('white');
+				transition: 0.5s ease all;
+			}
+
+			&:hover {
+				svg, path, g {
+					fill: $footerSocialColorHover;
+				}
+				span {
+					color: color('brand-primary');
+				}
+			}
+		}
+
+		svg {
+	    width: 20px;
+	    height: 20px;
+			display: block;
+		}
+		svg, path, g {
+			fill: $footerSocialColor;
+			transition: 0.5s ease all;
+		}
+
+
+	}
+}

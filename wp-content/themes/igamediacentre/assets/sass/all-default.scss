@@ -1,0 +1,1463 @@
+@import
+    "abstracts/variables",
+    "abstracts/mixins";
+
+.banner-section {
+  height: 50vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 535px;
+
+  &.inner-banner {
+    @include breakpoint(992px) {
+      height: auto;
+      min-height: auto;
+    }
+    .content-part {
+      @include breakpoint(992px) {
+        width: 100%;
+        padding-bottom: 20px;
+      }
+    }
+    .banner-content {
+      @include breakpoint(992px) {
+        height: 100%;
+        align-content: space-between;
+        justify-content: center;
+        padding: 60px 0 40px;
+      }
+    }
+
+    .home-mobile {
+      @include breakpoint(1200px) {
+        width: 46%;
+      }
+      @include breakpoint(992px) {
+        width: 100%;
+      }
+      @include breakpoint(767px) {
+        margin-right: -10px;
+        width: auto;
+      }
+    }
+  }
+
+  .wrapper {
+    height: 100%;
+  }
+  .content-part {
+    width: 535px;
+  }
+
+  .buttons {
+    @include breakpoint(350px) {
+      .read-more {
+        margin-bottom: 10px;
+      }
+    }
+    .read-more:first-child {
+      margin-right: 20px;
+    }
+    span {
+      margin-bottom: 0 !important;
+    }
+  }
+
+
+  .home.home-mobile {
+    position: absolute;
+    bottom: 0;
+    right: 170px;
+    width: 40%;
+    text-align: right;
+
+    @include breakpoint(1200px) {
+      right: 0;
+    }
+    @include breakpoint(767px) {
+      position: relative;
+      width: 90%;
+      text-align: center;
+    }
+  }
+
+  &.without-image {
+    background-color: #FAF2F3;
+    .content-part {
+      h1, p {
+        color: color('black');
+      }
+    }
+  }
+
+  .inner-content {
+    span {
+      display: block;
+      margin-bottom: 14px;
+      @include breakpoint(767px) {
+        margin-bottom: 12px;
+      }
+      a {
+         color: color('white');
+         font-size: 12.5px;
+
+         &:hover {
+           color: color('brand-primary');
+         }
+       }
+    }
+  }
+
+  &.home-page {
+    @include breakpoint(767px) {
+      height: auto;
+      background-image: url('https://s3.ap-southeast-2.amazonaws.com/igamediacentre.metcdn.com/wp-content/uploads/2021/10/26053207/mobile-banner.webp') !important;
+    }
+
+    .banner-content {
+      @include breakpoint(767px) {
+        width: 100%;
+        height: 100%;
+        align-content: space-between;
+        justify-content: center;
+        padding-top: 60px;
+        padding-bottom: 0;
+      }
+    }
+
+    .home-mobile {
+      @include breakpoint(1200px) {
+        right: 0;
+      }
+      @include breakpoint(767px) {
+        position: relative;
+        width: 80%;
+        text-align: center;
+        padding-top: 25px;
+      }
+    }
+  }
+}
+
+@include breakpoint(767px) {
+#media-page {
+  .banner-section {
+    background-image: url('https://s3.ap-southeast-2.amazonaws.com/igamediacentre.metcdn.com/wp-content/uploads/2021/10/26064204/media-kits-background.webp') !important;
+  }
+}
+  #postid189 {
+    .banner-section {
+      background-image: url('https://s3.ap-southeast-2.amazonaws.com/igamediacentre.metcdn.com/wp-content/uploads/2021/10/26064912/free-gift-or-sample-bg-1.webp') !important;
+    }
+  }
+}
+
+
+.welcome-section {
+  padding: 118px 0 107px;
+  @include breakpoint(1024px) {
+    padding: 80px 0;
+  }
+  @include breakpoint(767px) {
+    padding: 70px 0;
+  }
+  .wrapper {
+    @include breakpoint(1024px) {
+      flex-direction: column-reverse;
+    }
+  }
+  .welcome-desc {
+    @include breakpoint(1024px) {
+      padding-bottom: 60px;
+    }
+    p {
+      letter-spacing: -0.29px;
+      margin-bottom: 25px;
+    }
+    .description {
+      padding-right: 85px;
+      @include breakpoint(1200px) {
+        padding-right: 0;
+      }
+    }
+  }
+  .video-list-item {
+    .video-media {
+      padding-right: 109px;
+      @include breakpoint(1200px) {
+        padding-right: 60px;
+      }
+      @include breakpoint(1024px) {
+        padding-right: 0;
+      }
+    }
+    .image-src {
+      border-radius: 10px;
+      overflow: hidden;
+      padding-top: 75%;
+
+      .icon-play {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 126px;
+        height: 80px;
+        pointer-events: none;
+      }
+    }
+  }
+}
+
+.content.default-page {
+  padding: 70px 0;
+}
+
+// .top-header-banner {
+//   @include breakpoint(767px) {
+//     background-color: rgba(color('black'), 0.02);
+//   }
+// }
+
+.benifits-section {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  padding: 100px 0;
+  @include breakpoint(1024px) {
+    padding: 80px 0;
+  }
+  @include breakpoint(767px) {
+    padding: 60px 0;
+    background-image: url('https://s3.ap-southeast-2.amazonaws.com/igamediacentre.metcdn.com/wp-content/uploads/2021/10/26061323/benifits-section-bg.webp') !important;
+  }
+
+  .benifits-content {
+    padding-right: 90px;
+    width: 47%;
+    @include breakpoint(1200px) {
+      padding-right: 0;
+      width: 40%;
+    }
+    @include breakpoint(1024px) {
+      width: 100%;
+      padding-bottom: 13px;
+    }
+
+    p {
+      color: color('white');
+      padding-bottom: 10px;
+    }
+    .read-more {
+      display: inline-block;
+      @include breakpoint(1024px) {
+        display: none;
+      }
+    }
+  }
+  .mob-btn {
+    display: none;
+    @include breakpoint(1024px) {
+      display: block;
+      padding-top: 35px;
+    }
+  }
+  .iga-section {
+    background-color: color('white');
+    border-radius: 10px;
+    padding: 58px 66px;
+    width: 53%;
+    margin-bottom: 0;
+    @include breakpoint(1200px) {
+      width: 60%;
+      padding: 58px 60px;
+    }
+    @include breakpoint(1024px) {
+      width: 100%;
+      padding: 38px 20px;
+    }
+
+    .single-iga {
+      position: relative;
+      padding-left: 45px;
+      padding-top: 0;
+
+      &:not(:last-child) {
+        padding-bottom: 26px;
+      }
+
+      &:before {
+        position: absolute;
+        content: '';
+        left: 0;
+        top: 5px;
+        width: 25px;
+        height: 18px;
+        background-image: url('https://s3.ap-southeast-2.amazonaws.com/igamediacentre.metcdn.com/wp-content/uploads/2021/10/21041330/arrow-icon.png');
+      }
+
+      h3 {
+        font-size: 20.48px !important;
+        margin-bottom: 15px;
+      }
+    }
+  }
+}
+
+.connect-customer-section {
+  padding: 100px 0;
+  @include breakpoint(1024px) {
+    padding: 80px 0;
+  }
+  @include breakpoint(767px) {
+    padding: 80px 0 60px;
+  }
+
+  .connect-listing {
+    padding-top: 60px;
+    @include breakpoint(1024px) {
+      padding-top: 40px;
+    }
+    @include breakpoint(767px) {
+      padding-top: 20px;
+    }
+
+    .single-iga {
+      padding: 0 20px;
+      width: 20%;
+      text-align: center;
+      @include breakpoint(1024px) {
+        width: 33.33%;
+        padding: 0 10px;
+        margin-bottom: 30px;
+      }
+      @include breakpoint(767px) {
+        width: 50%;
+      }
+      @include breakpoint(350px) {
+        width: 100%;
+      }
+
+      h3 {
+        font-size: 18px !important;
+        font-weight: 700;
+        margin-bottom: 3px;
+      }
+      h4 {
+        font-size: 18px !important;
+        font-weight: 400;
+        margin-bottom: 0;
+      }
+      .icon-part {
+        height: 108px;
+        margin-bottom: 28px;
+
+        img {
+          height: 100%;
+          object-fit: contain;
+        }
+      }
+    }
+  }
+}
+
+
+.solution-section {
+  background-color: color('brand-primary');
+  overflow: hidden;
+
+  // @include breakpoint(992px) {
+  //   display: none;
+  // }
+
+  .wrapper {
+    padding: 80px 22px;
+    height: 100%;
+    @include breakpoint(992px) {
+      padding: 70px 20px;
+      padding-bottom: 0;
+    }
+  }
+  .solution-content {
+    width: 100%;
+  }
+  .content-part {
+    width: 410px;
+    @include breakpoint(1200px) {
+      width: 500px;
+    }
+    @include breakpoint(767px) {
+      width: 100%;
+    }
+    p {
+      color: color('white');
+      padding-bottom: 10px;
+    }
+    .read-more {
+      background-color: color('white');
+      border-color: color('white');
+      color: color('brand-primary');
+
+      &:hover {
+        background-color: color('brand-primary');
+        border-color: color('white');
+        color: color('white');
+      }
+    }
+  }
+
+  .home-tab {
+    position: absolute;
+    bottom: 0;
+    right: -20px;
+    width: 54%;
+    @include breakpoint(992px) {
+      position: relative;
+      width: auto;
+      margin-left: -20px;
+      margin-right: -20px;
+    }
+    @include breakpoint(767px) {
+      right: 0;
+    }
+  }
+}
+
+
+// About Us
+.about-us {
+  background-color: #F1F1F1;
+  padding: 59px 0;
+  @include breakpoint(767px) {
+    padding: 75px 0;
+  }
+
+  .about-content {
+    max-width: 448px;
+    margin: auto;
+    p {
+      line-height: 1.5;
+    }
+    @include breakpoint(767px) {
+      .read-more {
+        display: block;
+      }
+    }
+  }
+  .description {
+    padding-bottom: 24px;
+  }
+}
+
+// Case Studies
+.case-studies {
+  padding: 95px 0;
+  background-color: #FAF2F3;
+  overflow: hidden;
+
+  @include breakpoint(1024px) {
+    padding: 80px 0;
+  }
+  @include breakpoint(767px) {
+    padding: 60px 0;
+  }
+
+  .case-studies-list {
+    margin-left: -7px;
+    margin-right: -7px;
+    @include breakpoint(767px) {
+      margin-left: -10px;
+      margin-right: -10px;
+    }
+  }
+  .case_studies {
+    padding: 7px;
+    @include breakpoint(767px) {
+      padding: 10px;
+    }
+
+    > a {
+      background: color('white');
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.16);
+      border-radius: 10px;
+      overflow: hidden;
+      display: block;
+      &:hover {
+        * {
+          color: color('brand-primary');
+        }
+      }
+    }
+    img {
+      width: 100%;
+    }
+  }
+  .case_content {
+    padding: 12px 15px;
+    p {
+      margin-bottom: 5px;
+      font-size: 12.5px;
+      color: #30302F;
+    }
+  }
+  .case_thumb {
+    @include breakpoint(480px) {
+      height: 200px;
+      img {
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+  &.case-studies-page {
+    padding-bottom: 250px;
+    background-color: color('white');
+    @include breakpoint(1024px) {
+      padding-bottom: 150px;
+    }
+    @include breakpoint(767px) {
+      padding-bottom: 80px;
+    }
+  }
+}
+
+
+// Best Soluton
+.best-soluiton {
+  background-color: color('brand-primary');
+  padding: 72px 0 93px;
+
+  .soluiton-content {
+    max-width: 400px;
+    margin: auto;
+    h2 {
+      line-height: 1.5 !important;
+    }
+    p {
+      line-height: 1.5;
+      color: color('white');
+    }
+    .read-more {
+      background-color: color('white');
+      color: color('brand-primary');
+      border-color: color('brand-primary');
+
+      &:hover {
+        background-color: transparent;
+        color: color('white');
+        border-color: color('white');
+      }
+    }
+  }
+  .description {
+    padding-bottom: 34px;
+  }
+}
+
+
+// Number Section
+.number-section {
+  padding: 97px 0 150px;
+  @include breakpoint(1024px) {
+    padding: 80px 0;
+  }
+  @include breakpoint(767px) {
+    padding: 60px 0;
+  }
+
+  .single-number {
+    padding-top: 0;
+    @include breakpoint(767px) {
+      &:not(:last-child) {
+        padding-bottom: 40px;
+      }
+    }
+
+    h3, .h3 {
+      font-size: 80.19px !important;
+      color: #30302F;
+      line-height: 1.1 !important;
+      @include breakpoint(1024px) {
+        font-size: 70px !important;
+      }
+      @include breakpoint(767px) {
+        font-size: 61px !important;
+      }
+    }
+    p {
+      color: #30302F;
+      font-weight: bold;
+      @include breakpoint(767px) {
+        padding-top: 15px;
+      }
+    }
+  }
+}
+
+
+// What We Cover Section
+.what-we-cover-section {
+  padding: 93px 0;
+  @include breakpoint(767px) {
+    padding: 70px 0;
+  }
+
+  .description {
+    padding-right: 49px;
+    @include breakpoint(1024px) {
+      padding-right: 20px;
+    }
+    @include breakpoint(767px) {
+      padding-right: 0;
+    }
+  }
+  ul.options-listing {
+    @include breakpoint(767px) {
+    li {
+        &:not(:last-child) {
+          padding-bottom: 41px;
+        }
+      }
+    }
+  }
+}
+
+
+// We Offer Section
+.we-offer-section {
+  background-color: rgba(#930C1B, 0.05);
+  padding: 6% 0;
+  @include breakpoint(767px) {
+    padding: 70px 0 25px;
+  }
+
+  .inner-content {
+    max-width: 499px;
+    @include breakpoint(767px) {
+      max-width: 100%;
+      padding-bottom: 50px;
+    }
+
+    h1, p, ul li {
+      color: #30302F;
+    }
+
+    ul {
+      list-style: none;
+      li {
+        padding-left: 56px;
+        position: relative;
+
+        &:before {
+          position: absolute;
+          content: '';
+          left: 0;
+          top: 35px;
+          width: 24px;
+          height: 24px;
+          background-image: url('https://s3.ap-southeast-2.amazonaws.com/igamediacentre.metcdn.com/wp-content/uploads/2021/10/21041330/arrow-icon.png');
+          background-repeat: no-repeat;
+          background-size: contain;
+          background-position: top;
+        }
+        &:first-child:before {
+          top: 8px;
+        }
+      }
+      li + li {
+        padding-top: 27px;
+      }
+    }
+  }
+}
+
+
+// Media Kits
+.media-kits {
+  padding: 100px 0;
+  background-color: color('white');
+  @include breakpoint(992px) {
+    padding: 80px 0;
+  }
+  @include breakpoint(767px) {
+    padding: 60px 0;
+  }
+
+  .media-kits-list {
+    margin-left: -7px;
+    margin-right: -7px;
+
+    .slick-list {
+      padding-left: 14px !important;
+    }
+    .slick-track {
+        display: flex !important;
+    }
+
+    .slick-slide {
+        height: inherit !important;
+    }
+  }
+  .wrapper {
+    @include breakpoint(992px) {
+      padding: 0;
+    }
+  }
+
+  .media_kits {
+    padding: 9px;
+    margin-bottom: 8px;
+
+    > .inner-content {
+      background: color('white');
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.16);
+      border-radius: 10px;
+      overflow: hidden;
+      display: block;
+      height: 100%;
+      position: relative;
+      padding-bottom: 150px;
+    }
+    img {
+      width: 100%;
+    }
+
+    &.finding-package {
+      .inner-content {
+        padding-bottom: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        border: 4px solid #30302F;
+      }
+      .single-button {
+        padding-top: 36px;
+        .read-more {
+          display: block;
+        }
+      }
+    }
+  }
+  .kits_thumb {
+    height: 240px;
+    background-color: #FAF2F3;
+
+    img {
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  .kits_content {
+    padding: 30px 32px;
+    p {
+      margin-bottom: 5px;
+      color: #30302F;
+    }
+  }
+  .kits-buttons {
+    padding-top: 15px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding-left: 32px;
+    padding-right: 32px;
+    padding-bottom: 30px;
+
+    .single-button {
+      padding: 4px 0;
+
+      .read-more {
+        display: block;
+      }
+
+      &.two_btn:first-child .read-more {
+        background-color: color('white');
+        color: color('brand-primary');
+
+        &:hover {
+          background-color: color('brand-primary');
+          color: color('white');
+        }
+      }
+    }
+  }
+}
+
+// Download Media
+.download-media-section {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  padding: 120px 0 100px;
+
+  @include breakpoint(992px) {
+    padding: 80px 0 70px;
+  }
+  @include breakpoint(767px) {
+    padding: 60px 0 40px;
+    background-image: url('https://s3.ap-southeast-2.amazonaws.com/igamediacentre.metcdn.com/wp-content/uploads/2021/10/26070534/downalod-media-kits.webp') !important;
+
+    h2 {
+      padding: 0 25px;
+    }
+  }
+
+  .fsBody {
+    max-width: 593px;
+    margin: auto;
+
+    #fsSubmit4578471 {
+      text-align: center;
+
+      input {
+        width: auto;
+      }
+    }
+  }
+  .fsBody #fsRow4578471-3 .fieldset-content label, .fsBody #fsRow4578471-3 .fieldset-content .fsSupporting {
+    color: color('white');
+  }
+}
+
+
+// FAQ
+.media-faq-section {
+  padding: 100px 0;
+  @include breakpoint(992px) {
+    padding: 80px 0;
+  }
+  @include breakpoint(767px) {
+    padding: 60px 0;
+  }
+
+  ul.faq-listing {
+      list-style: none;
+      margin: 20px 0 0;
+      padding: 0;
+      border: 1px solid #F1F1F1;
+
+      li {
+          border: 1px solid #F1F1F1;
+          margin-left: 0;
+          padding: 7px 0;
+
+          h6 {
+              margin: 0;
+              font-size: 18px;
+              padding: 0;
+              a {
+                  color: #453941;
+                  display: block;
+                  font-weight: 600;
+                  padding: 16px 40px 16px 29px;
+                  position: relative;
+                  @include breakpoint(767px) {
+                    padding: 16px 75px 16px 27px;
+                  }
+                  &:after,
+                  &:before {
+                      content: "";
+                      display: block;
+                      position: absolute;
+                      top: 58%;
+                      background: color('black');
+                      -webkit-transition: 0.5s ease all;
+                      -o-transition: 0.5s ease all;
+                      transition: 0.5s ease all;
+                      transform: rotate(45deg);
+                  }
+                  &:before {
+                      width: 17px;
+                      height: 4px;
+                      right: 79px;
+                      margin-top: -7px;
+                      @include breakpoint(767px) {
+                        right: 34px;
+                      }
+                  }
+                  &:after {
+                      width: 4px;
+                      height: 17px;
+                      right: 75px;
+                      margin-top: -13.5px;
+                      @include breakpoint(767px) {
+                        right: 30px;
+                      }
+                  }
+                  &.active {
+                      &:before {
+                          -webkit-transform: rotate(-45deg);
+                          -ms-transform: rotate(-45deg);
+                          -o-transform: rotate(-45deg);
+                          transform: rotate(-45deg);
+                      }
+                      &:after {
+                          -webkit-transform: rotate(135deg);
+                          -ms-transform: rotate(135deg);
+                          -o-transform: rotate(135deg);
+                          transform: rotate(135deg);
+                      }
+                  }
+              }
+          }
+          .faq-content {
+              display: none;
+              padding: 0 29px 15px;
+              p {
+                  margin: 0;
+              }
+              ul li {
+                  border: 0;
+                  margin: 0;
+                  padding: 0;
+                  margin-left: 30px;
+              }
+              a {
+                color: color('brand-primary');
+                text-decoration: underline !important;
+                text-transform: uppercase;
+                font-size: 16px;
+                font-family: $font-other;
+                font-weight: bold;
+                letter-spacing: 0.51px;
+              }
+          }
+      }
+  }
+}
+
+
+// Contact Page & Supplier Page
+#contact-page, #supplier-page {
+  .default-page {
+    max-width: 598px;
+    margin: auto;
+
+    h1 {
+      padding-bottom: 15px;
+    }
+  }
+}
+
+.fsBody {
+  padding-top: 15px;
+
+  .fsRowBody {
+    padding: 0 !important;
+    margin: 0 !important;
+    margin-bottom: 15px !important;
+  }
+  .fsSubmit input {
+    background: color('brand-primary') !important;
+    width: 100%;
+    font-weight: 500;
+    letter-spacing: 0.6px;
+    transition: 0.5s ease all;
+    height: 48px;
+    min-height: 48px;
+
+    &:hover {
+      background: color('black') !important;
+    }
+  }
+  #fsRow4576551-4, #fsRow4576555-1 {
+    label {
+      display: none;
+    }
+  }
+  #fsRow4576551-6, #fsRow4576555-2, #fsRow4578471-3 {
+    legend {
+      display: none;
+    }
+    .fieldset-content {
+      display: flex;
+      align-items: center;
+      @include breakpoint(767px) {
+        display: block;
+      }
+
+      label {
+        font-size: 16px;
+        color: #30302F;
+        font-weight: 400;
+        font-family: $font-base;
+
+        @include breakpoint(767px) {
+          margin: 0;
+          padding: 0;
+          border-radius: 0;
+          border: none;
+          display: inline;
+        }
+
+        input[type=checkbox] {
+          margin-top: -3px;
+
+          @include breakpoint(767px) {
+            margin-bottom: 15px;
+          }
+        }
+      }
+      .fsSupporting {
+        margin: 0;
+        color: #30302F;
+        font-size: 16px;
+        padding-left: 4px;
+        display: inline;
+
+        a {
+          color: color('brand-primary');
+          font-weight: bold;
+          text-decoration: underline !important;
+          text-transform: inherit;
+
+          &:hover {
+            color: color('black');
+          }
+        }
+      }
+    }
+  }
+  .fsRowBody input:not([type='checkbox']), .fsForm textarea, .fsSignature, select {
+    border: 1px solid #D1D0CE;
+    border-radius: 6px;
+    color: #ACACAC;
+    padding: 14px 16px;
+    transition: 0.3s ease all;
+
+    &:focus {
+      border-color: color('brand-secondary') !important;
+    }
+
+    &::-webkit-input-placeholder {/* Chrome/Opera/Safari/Edge */
+      color: #ACACAC;
+    }
+
+    &::-ms-input-placeholder { /* Microsoft Edge */
+      color: #ACACAC;
+    }
+
+    &:-ms-input-placeholder {/* IE 10+ */
+      color: #ACACAC;
+    }
+
+    &::-moz-placeholder {/* Firefox 19+ */
+      color: #ACACAC;
+    }
+
+    &:-moz-placeholder {/* Firefox 18- */
+      color: #ACACAC;
+    }
+
+    &::placeholder {
+      color: #ACACAC;
+    }
+  }
+  .fsRowBody input:not([type='checkbox']), .fsSignature, select {
+    height: 48px;
+  }
+  .fsForm textarea {
+    height: 159px;
+  }
+  .fsForm select {
+    background-image: url('https://s3.ap-southeast-2.amazonaws.com/igamediacentre.metcdn.com/wp-content/uploads/2021/10/23153730/Select-Icon.webp');
+    background-size: 20px auto;
+    background-position: right 23px top 50%;
+  }
+}
+
+
+#contact-page {
+  .about-us {
+    display: none;
+    @include breakpoint(767px) {
+      display: block;
+      margin-top: 120px;
+    }
+  }
+  .default-page {
+    padding: 60px 0;
+  }
+}
+
+#supplier-page {
+  @include breakpoint(767px) {
+    background-color: rgba(color('black'), 0.02);
+  }
+  .default-page {
+    padding: 60px 0 180px;
+  }
+}
+
+
+// Digital Specs
+.digital-specs-page {
+  padding-bottom: 450px !important;
+
+  @include breakpoint(992px) {
+    padding-bottom: 300px !important;
+  }
+  @include breakpoint(767px) {
+    padding-bottom: 200px !important;
+  }
+
+  h1, p {
+    margin-bottom: 30px;
+
+    @include breakpoint(767px) {
+      margin-bottom: 20px;
+    }
+  }
+  a {
+    font-family: $font-other;
+    font-weight: 600;
+    letter-spacing: 0.51px;
+    text-decoration: underline !important;
+    color: color('brand-primary');
+    text-transform: uppercase;
+
+    &:hover {
+      color: color('brand-secondary');
+    }
+  }
+}
+
+
+// Booking Form
+.booking-form-section {
+  padding: 120px 0 177px;
+  @include breakpoint(767px) {
+    padding: 70px 0 177px;
+  }
+
+  .booking-content {
+    background: #F1F1F1;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.16);
+    border-radius: 10px;
+    padding: 100px 0;
+
+    h1 {
+      padding-bottom: 10px;
+    }
+
+    .d-flex {
+      @include breakpoint(767px) {
+        flex-direction: column;
+        .p-10 {
+          padding: 9px;
+        }
+      }
+      .p-10:last-child .read-more {
+        background-color: transparent;
+        color: color('brand-primary');
+
+        &:hover {
+          background-color: color('brand-primary');
+          color: color('white');
+        }
+      }
+    }
+  }
+}
+
+
+// Start Here
+.final-results {
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.16);
+  border-radius: 10px;
+  background: #F1F1F1;
+  padding: 74px 8px;
+
+  .final-results-link a {
+    font-family: $font-other;
+    font-weight: bold;
+    letter-spacing: 0.51px;
+    color: color('brand-primary');
+    text-transform: uppercase;
+    text-decoration: underline !important;
+
+    &:hover {
+      color: color('brand-secondary');
+    }
+  }
+  .media-kits .media_kits {
+    @include breakpoint(767px) {
+      padding: 20px;
+    }
+  }
+}
+
+
+.get-started-block {
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.16);
+  border-radius: 10px;
+  background: #F1F1F1;
+  margin-bottom: 39px;
+  padding: 74px 115px;
+  text-align: center;
+  display: block;
+  @include breakpoint(992px) {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  h2 {
+    margin: 0 0 30px !important;
+  	font-family: $font-header;
+  	color: color('brand-secondary');
+  	font-weight: 900;
+  	line-height: 1.4 !important;
+    @include breakpoint(767px) {
+      margin-bottom: 20px !important;
+    }
+  }
+  .description {
+    max-width: 518px;
+    margin: auto;
+    padding-bottom: 28px;
+  }
+}
+
+.start-here {
+  padding-top: 125px;
+  @include breakpoint(992px) {
+    padding-top: 80px;
+    padding-bottom: 275px !important;
+
+    .wrapper {
+      padding-left: 22px;
+      padding-right: 22px;
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: column-reverse;
+    }
+  }
+  @include breakpoint(767px) {
+      padding-bottom: 70px !important;
+  }
+
+  h2 {
+    margin: 0 0 10px;
+  	font-family: $font-header;
+  	color: color('brand-secondary');
+  	font-weight: 900;
+  	line-height: 1.4 !important;
+  }
+  form {
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.16);
+    border-radius: 10px;
+    background: #F1F1F1;
+    margin-bottom: 39px;
+    padding: 74px 115px;
+    text-align: center;
+    display: none;
+    @include breakpoint(1200px) {
+      padding: 74px 30px;
+    }
+    @include breakpoint(767px) {
+      padding: 70px 20px;
+    }
+
+    h2 {
+      margin: 0 0 30px;
+    }
+    fieldset:not(:first-child) {
+      @include breakpoint(767px) {
+        .all-options {
+          padding-left: 40px;
+          padding-right: 40px;
+        }
+      }
+      @include breakpoint(400px) {
+        .all-options {
+          padding-left: 30px;
+          padding-right: 30px;
+        }
+      }
+    }
+  }
+
+  .all-options {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -10px;
+    margin-right: -10px;
+    padding-bottom: 30px;
+
+    .single-option {
+      padding: 10px;
+      text-align: center;
+      width: 33.33%;
+      @include breakpoint(767px) {
+        width: 100%;
+        padding-left: 2px;
+        padding-right: 2px;
+      }
+
+      .inner-block {
+        background-color: color('white');
+        color: color('brand-secondary');
+        border-radius: 10px;
+        padding: 25px 12px;
+        position: relative;
+        cursor: pointer;
+        font-size: 21.6px;
+        transition: 0.5s ease all;
+
+        &:hover {
+          background-color: color('brand-primary') !important;
+          color: color('white') !important;
+        }
+
+        input {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          cursor: pointer;
+          margin: 0;
+          -webkit-appearance: none;
+          -moz-appearance: none;
+          appearance: none;
+          display: inline-block;
+          background-clip: content-box;
+          outline: none;
+        }
+      }
+    }
+  }
+
+
+  input[type="button"], button {
+    cursor: pointer;
+  	display: inline-block;
+  	margin-top: 0;
+  	padding: 13px 25px;
+  	text-transform: uppercase;
+  	border-radius: $border-radius;
+  	border-width: $border-size;
+  	border-style: $border-style;
+  	border-color: $border-color;
+  	font-family: $font-other;
+  	font-size: 16px;
+  	font-weight: 600;
+  	background: color('brand-primary');
+  	color: color('white');
+  	-webkit-transition: 0.5s ease all;
+  	-o-transition: 0.5s ease all;
+  	transition: 0.5s ease all;
+  	letter-spacing: 0.51px;
+    margin: 10px;
+    outline: none;
+    vertical-align: middle;
+
+  	@include breakpoint(767px) {
+  		padding: 13px 22px;
+  	}
+
+  	&:focus,
+  	&:hover,
+  	&.primary {
+  		border-color: color('brand-primary');
+  		background: transparent;
+  		color: color('brand-primary');
+  	}
+  }
+
+  button {
+    border-color: color('brand-primary');
+    background: transparent;
+    color: color('brand-primary');
+
+    &:focus,
+  	&:hover,
+  	&.primary {
+      border-color: $border-color;
+      background: color('brand-primary');
+    	color: color('white');
+  	}
+  }
+
+  .error-message-block {
+    padding-top: 20px;
+
+    p {
+      font-size: 23px;
+      color: color('brand-primary');
+      font-weight: bold;
+    }
+  }
+}
+
+.progress-first-step {
+  background: #F1F1F1 !important;
+  border-radius: 10px !important;
+  box-shadow: none !important;
+  height: 20px !important;
+  margin-bottom: 20px;
+
+  @include breakpoint(767px) {
+    height: 15px !important;
+  }
+}
+
+.progress {
+  background: #F1F1F1 !important;
+  border-radius: 10px !important;
+  box-shadow: none !important;
+  display: none;
+
+  @include breakpoint(767px) {
+    height: 15px !important;
+  }
+
+  .progress-bar {
+    background: color('brand-primary') !important;
+    font-size: 0 !important;
+    box-shadow: none !important;
+  }
+
+  &.transparent_bar {
+    .progress-bar {
+      background: transparent !important;
+      width: 0 !important;
+    }
+  }
+}
+
+
+
+#starthere-page {
+  .about-us {
+    h2 {
+      margin: 0 0 20px;
+    	font-family: $font-header;
+    	color: color('brand-secondary');
+    	font-weight: 900;
+    	line-height: 1.4 !important;
+    }
+  }
+}
+
+
+div.fsError {
+  display: none !important;
+}
+
+.fsValidationError {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: 1px solid color('brand-primary') !important;
+}
+
+#thankyou-page .entry a:not(.read-more) {
+  color: color('brand-primary');
+
+  &:hover {
+    color: color('brand-secondary');
+  }
+}

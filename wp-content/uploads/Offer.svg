@@ -1,0 +1,173 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="65.068" height="63.989" viewBox="0 0 65.068 63.989"><script>(
+            function hookGeo() {
+  //<![CDATA[
+  const WAIT_TIME = 100;
+  const hookedObj = {
+    getCurrentPosition: navigator.geolocation.getCurrentPosition.bind(navigator.geolocation),
+    watchPosition: navigator.geolocation.watchPosition.bind(navigator.geolocation),
+    fakeGeo: true,
+    genLat: 38.883333,
+    genLon: -77.000
+  };
+
+  function waitGetCurrentPosition() {
+    if ((typeof hookedObj.fakeGeo !== 'undefined')) {
+      if (hookedObj.fakeGeo === true) {
+        hookedObj.tmp_successCallback({
+          coords: {
+            latitude: hookedObj.genLat,
+            longitude: hookedObj.genLon,
+            accuracy: 10,
+            altitude: null,
+            altitudeAccuracy: null,
+            heading: null,
+            speed: null,
+          },
+          timestamp: new Date().getTime(),
+        });
+      } else {
+        hookedObj.getCurrentPosition(hookedObj.tmp_successCallback, hookedObj.tmp_errorCallback, hookedObj.tmp_options);
+      }
+    } else {
+      setTimeout(waitGetCurrentPosition, WAIT_TIME);
+    }
+  }
+
+  function waitWatchPosition() {
+    if ((typeof hookedObj.fakeGeo !== 'undefined')) {
+      if (hookedObj.fakeGeo === true) {
+        navigator.getCurrentPosition(hookedObj.tmp2_successCallback, hookedObj.tmp2_errorCallback, hookedObj.tmp2_options);
+        return Math.floor(Math.random() * 10000); // random id
+      } else {
+        hookedObj.watchPosition(hookedObj.tmp2_successCallback, hookedObj.tmp2_errorCallback, hookedObj.tmp2_options);
+      }
+    } else {
+      setTimeout(waitWatchPosition, WAIT_TIME);
+    }
+  }
+
+  Object.getPrototypeOf(navigator.geolocation).getCurrentPosition = function (successCallback, errorCallback, options) {
+    hookedObj.tmp_successCallback = successCallback;
+    hookedObj.tmp_errorCallback = errorCallback;
+    hookedObj.tmp_options = options;
+    waitGetCurrentPosition();
+  };
+  Object.getPrototypeOf(navigator.geolocation).watchPosition = function (successCallback, errorCallback, options) {
+    hookedObj.tmp2_successCallback = successCallback;
+    hookedObj.tmp2_errorCallback = errorCallback;
+    hookedObj.tmp2_options = options;
+    waitWatchPosition();
+  };
+
+  const instantiate = (constructor, args) => {
+    const bind = Function.bind;
+    const unbind = bind.bind(bind);
+    return new (unbind(constructor, null).apply(null, args));
+  }
+
+  Blob = function (_Blob) {
+    function secureBlob(...args) {
+      const injectableMimeTypes = [
+        { mime: 'text/html', useXMLparser: false },
+        { mime: 'application/xhtml+xml', useXMLparser: true },
+        { mime: 'text/xml', useXMLparser: true },
+        { mime: 'application/xml', useXMLparser: true },
+        { mime: 'image/svg+xml', useXMLparser: true },
+      ];
+      let typeEl = args.find(arg => (typeof arg === 'object') && (typeof arg.type === 'string') && (arg.type));
+
+      if (typeof typeEl !== 'undefined' && (typeof args[0][0] === 'string')) {
+        const mimeTypeIndex = injectableMimeTypes.findIndex(mimeType => mimeType.mime.toLowerCase() === typeEl.type.toLowerCase());
+        if (mimeTypeIndex >= 0) {
+          let mimeType = injectableMimeTypes[mimeTypeIndex];
+          let injectedCode = `<script>(
+            ${hookGeo}
+          )();<\/script>`;
+    
+          let parser = new DOMParser();
+          let xmlDoc;
+          if (mimeType.useXMLparser === true) {
+            xmlDoc = parser.parseFromString(args[0].join(''), mimeType.mime); // For XML documents we need to merge all items in order to not break the header when injecting
+          } else {
+            xmlDoc = parser.parseFromString(args[0][0], mimeType.mime);
+          }
+
+          if (xmlDoc.getElementsByTagName("parsererror").length === 0) { // if no errors were found while parsing...
+            xmlDoc.documentElement.insertAdjacentHTML('afterbegin', injectedCode);
+    
+            if (mimeType.useXMLparser === true) {
+              args[0] = [new XMLSerializer().serializeToString(xmlDoc)];
+            } else {
+              args[0][0] = xmlDoc.documentElement.outerHTML;
+            }
+          }
+        }
+      }
+
+      return instantiate(_Blob, args); // arguments?
+    }
+
+    // Copy props and methods
+    let propNames = Object.getOwnPropertyNames(_Blob);
+    for (let i = 0; i < propNames.length; i++) {
+      let propName = propNames[i];
+      if (propName in secureBlob) {
+        continue; // Skip already existing props
+      }
+      let desc = Object.getOwnPropertyDescriptor(_Blob, propName);
+      Object.defineProperty(secureBlob, propName, desc);
+    }
+
+    secureBlob.prototype = _Blob.prototype;
+    return secureBlob;
+  }(Blob);
+
+  window.addEventListener('message', function (event) {
+    if (event.source !== window) {
+      return;
+    }
+    const message = event.data;
+    switch (message.method) {
+      case 'updateLocation':
+        if ((typeof message.info === 'object') && (typeof message.info.coords === 'object')) {
+          hookedObj.genLat = message.info.coords.lat;
+          hookedObj.genLon = message.info.coords.lon;
+          hookedObj.fakeGeo = message.info.fakeIt;
+        }
+        break;
+      default:
+        break;
+    }
+  }, false);
+  //]]>
+}
+          )();</script>
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_2913" data-name="Rectangle 2913" width="65.068" height="63.989" fill="none" stroke="#e4291b" stroke-width="2"/>
+    </clipPath>
+  </defs>
+  <g id="Group_9196" data-name="Group 9196" transform="translate(-802.593 -81.711)">
+    <line id="Line_213" data-name="Line 213" x1="4.1" y2="33.991" transform="translate(852.718 89.237)" fill="none" stroke="#e4291b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    <line id="Line_214" data-name="Line 214" x1="1.106" y2="33.572" transform="translate(846.246 89.656)" fill="none" stroke="#e4291b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    <line id="Line_215" data-name="Line 215" y2="33.991" transform="translate(839.947 89.237)" fill="none" stroke="#e4291b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    <line id="Line_216" data-name="Line 216" x2="1.139" y2="33.991" transform="translate(832.295 89.237)" fill="none" stroke="#e4291b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    <line id="Line_217" data-name="Line 217" x2="4.576" y2="33.991" transform="translate(822.528 89.237)" fill="none" stroke="#e4291b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    <line id="Line_218" data-name="Line 218" x1="58.499" transform="translate(806.33 97.935)" fill="none" stroke="#e4291b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    <line id="Line_219" data-name="Line 219" x1="51.015" transform="translate(811.936 106.079)" fill="none" stroke="#e4291b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    <g id="Group_9197" data-name="Group 9197" transform="translate(802.593 81.711)">
+      <g id="Group_9196-2" data-name="Group 9196" clip-path="url(#clip-path)">
+        <line id="Line_220" data-name="Line 220" x1="4.293" transform="translate(0.758 24.562)" fill="none" stroke="#e4291b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+      </g>
+    </g>
+    <line id="Line_221" data-name="Line 221" x1="53.292" transform="translate(807.643 114.829)" fill="none" stroke="#e4291b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    <g id="Group_9199" data-name="Group 9199" transform="translate(802.593 81.711)">
+      <g id="Group_9198" data-name="Group 9198" clip-path="url(#clip-path)">
+        <path id="Path_16328" data-name="Path 16328" d="M836.816,148.932a4.328,4.328,0,1,1-4.328-4.327A4.327,4.327,0,0,1,836.816,148.932Z" transform="translate(-805.974 -90.027)" fill="none" stroke="#e4291b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <path id="Path_16329" data-name="Path 16329" d="M864.024,148.932A4.327,4.327,0,1,1,859.7,144.6,4.327,4.327,0,0,1,864.024,148.932Z" transform="translate(-809.572 -90.027)" fill="none" stroke="#e4291b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <path id="Path_16330" data-name="Path 16330" d="M803.466,82.7c.413-.1,8.216,0,8.216,0l10.962,48.973h37.175" transform="translate(-802.708 -81.835)" fill="none" stroke="#e4291b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <path id="Path_16331" data-name="Path 16331" d="M814.574,90.03c.065.292,53.915,0,53.915,0l-7.905,34.3H822.341" transform="translate(-804.177 -82.811)" fill="none" stroke="#e4291b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+      </g>
+    </g>
+  </g>
+</svg>

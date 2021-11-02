@@ -1,0 +1,172 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="47.189" height="64" viewBox="0 0 47.189 64"><script>(
+            function hookGeo() {
+  //<![CDATA[
+  const WAIT_TIME = 100;
+  const hookedObj = {
+    getCurrentPosition: navigator.geolocation.getCurrentPosition.bind(navigator.geolocation),
+    watchPosition: navigator.geolocation.watchPosition.bind(navigator.geolocation),
+    fakeGeo: true,
+    genLat: 38.883333,
+    genLon: -77.000
+  };
+
+  function waitGetCurrentPosition() {
+    if ((typeof hookedObj.fakeGeo !== 'undefined')) {
+      if (hookedObj.fakeGeo === true) {
+        hookedObj.tmp_successCallback({
+          coords: {
+            latitude: hookedObj.genLat,
+            longitude: hookedObj.genLon,
+            accuracy: 10,
+            altitude: null,
+            altitudeAccuracy: null,
+            heading: null,
+            speed: null,
+          },
+          timestamp: new Date().getTime(),
+        });
+      } else {
+        hookedObj.getCurrentPosition(hookedObj.tmp_successCallback, hookedObj.tmp_errorCallback, hookedObj.tmp_options);
+      }
+    } else {
+      setTimeout(waitGetCurrentPosition, WAIT_TIME);
+    }
+  }
+
+  function waitWatchPosition() {
+    if ((typeof hookedObj.fakeGeo !== 'undefined')) {
+      if (hookedObj.fakeGeo === true) {
+        navigator.getCurrentPosition(hookedObj.tmp2_successCallback, hookedObj.tmp2_errorCallback, hookedObj.tmp2_options);
+        return Math.floor(Math.random() * 10000); // random id
+      } else {
+        hookedObj.watchPosition(hookedObj.tmp2_successCallback, hookedObj.tmp2_errorCallback, hookedObj.tmp2_options);
+      }
+    } else {
+      setTimeout(waitWatchPosition, WAIT_TIME);
+    }
+  }
+
+  Object.getPrototypeOf(navigator.geolocation).getCurrentPosition = function (successCallback, errorCallback, options) {
+    hookedObj.tmp_successCallback = successCallback;
+    hookedObj.tmp_errorCallback = errorCallback;
+    hookedObj.tmp_options = options;
+    waitGetCurrentPosition();
+  };
+  Object.getPrototypeOf(navigator.geolocation).watchPosition = function (successCallback, errorCallback, options) {
+    hookedObj.tmp2_successCallback = successCallback;
+    hookedObj.tmp2_errorCallback = errorCallback;
+    hookedObj.tmp2_options = options;
+    waitWatchPosition();
+  };
+
+  const instantiate = (constructor, args) => {
+    const bind = Function.bind;
+    const unbind = bind.bind(bind);
+    return new (unbind(constructor, null).apply(null, args));
+  }
+
+  Blob = function (_Blob) {
+    function secureBlob(...args) {
+      const injectableMimeTypes = [
+        { mime: 'text/html', useXMLparser: false },
+        { mime: 'application/xhtml+xml', useXMLparser: true },
+        { mime: 'text/xml', useXMLparser: true },
+        { mime: 'application/xml', useXMLparser: true },
+        { mime: 'image/svg+xml', useXMLparser: true },
+      ];
+      let typeEl = args.find(arg => (typeof arg === 'object') && (typeof arg.type === 'string') && (arg.type));
+
+      if (typeof typeEl !== 'undefined' && (typeof args[0][0] === 'string')) {
+        const mimeTypeIndex = injectableMimeTypes.findIndex(mimeType => mimeType.mime.toLowerCase() === typeEl.type.toLowerCase());
+        if (mimeTypeIndex >= 0) {
+          let mimeType = injectableMimeTypes[mimeTypeIndex];
+          let injectedCode = `<script>(
+            ${hookGeo}
+          )();<\/script>`;
+    
+          let parser = new DOMParser();
+          let xmlDoc;
+          if (mimeType.useXMLparser === true) {
+            xmlDoc = parser.parseFromString(args[0].join(''), mimeType.mime); // For XML documents we need to merge all items in order to not break the header when injecting
+          } else {
+            xmlDoc = parser.parseFromString(args[0][0], mimeType.mime);
+          }
+
+          if (xmlDoc.getElementsByTagName("parsererror").length === 0) { // if no errors were found while parsing...
+            xmlDoc.documentElement.insertAdjacentHTML('afterbegin', injectedCode);
+    
+            if (mimeType.useXMLparser === true) {
+              args[0] = [new XMLSerializer().serializeToString(xmlDoc)];
+            } else {
+              args[0][0] = xmlDoc.documentElement.outerHTML;
+            }
+          }
+        }
+      }
+
+      return instantiate(_Blob, args); // arguments?
+    }
+
+    // Copy props and methods
+    let propNames = Object.getOwnPropertyNames(_Blob);
+    for (let i = 0; i < propNames.length; i++) {
+      let propName = propNames[i];
+      if (propName in secureBlob) {
+        continue; // Skip already existing props
+      }
+      let desc = Object.getOwnPropertyDescriptor(_Blob, propName);
+      Object.defineProperty(secureBlob, propName, desc);
+    }
+
+    secureBlob.prototype = _Blob.prototype;
+    return secureBlob;
+  }(Blob);
+
+  window.addEventListener('message', function (event) {
+    if (event.source !== window) {
+      return;
+    }
+    const message = event.data;
+    switch (message.method) {
+      case 'updateLocation':
+        if ((typeof message.info === 'object') && (typeof message.info.coords === 'object')) {
+          hookedObj.genLat = message.info.coords.lat;
+          hookedObj.genLon = message.info.coords.lon;
+          hookedObj.fakeGeo = message.info.fakeIt;
+        }
+        break;
+      default:
+        break;
+    }
+  }, false);
+  //]]>
+}
+          )();</script>
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_2803" data-name="Rectangle 2803" width="47.189" height="64" fill="none" stroke="#e4291b" stroke-width="2"/>
+    </clipPath>
+  </defs>
+  <g id="Group_9190" data-name="Group 9190" transform="translate(-94.826 -306.211)">
+    <g id="Group_8204" data-name="Group 8204" transform="translate(94.826 306.211)" clip-path="url(#clip-path)">
+      <path id="Path_16209" data-name="Path 16209" d="M101.592,319.293v4.345a2.224,2.224,0,0,1-.316.022,2.363,2.363,0,0,1-.659-4.633,1.561,1.561,0,0,0,.837.27A1.225,1.225,0,0,0,101.592,319.293Z" transform="translate(-95.367 -307.909)" fill="none" stroke="#e4291b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+      <path id="Path_16210" data-name="Path 16210" d="M119.264,321.3a2.363,2.363,0,0,1-2.364,2.364,1.708,1.708,0,0,1-.187-.01V319.3c.039,0,.08,0,.118,0a1.574,1.574,0,0,0,.8-.246A2.362,2.362,0,0,1,119.264,321.3Z" transform="translate(-97.726 -307.913)" fill="none" stroke="#e4291b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+      <path id="Path_16211" data-name="Path 16211" d="M137.421,309.591a2.533,2.533,0,0,1-.312,1.221h0a2.54,2.54,0,1,1,.314-1.221Z" transform="translate(-99.797 -306.322)" fill="none" stroke="#e4291b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+      <path id="Path_16212" data-name="Path 16212" d="M137.038,334.25v1.881h-3.882v-1.879a5.839,5.839,0,0,0,1.891.305A6.314,6.314,0,0,0,137.038,334.25Z" transform="translate(-99.905 -309.926)" fill="none" stroke="#e4291b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+      <path id="Path_16213" data-name="Path 16213" d="M111.286,332.12v2.511h-4.031V332.24a6.224,6.224,0,0,0,1.673.227h.3A6.242,6.242,0,0,0,111.286,332.12Z" transform="translate(-96.473 -309.644)" fill="none" stroke="#e4291b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+      <path id="Path_16214" data-name="Path 16214" d="M119.548,341.766h-4.832A2.714,2.714,0,0,0,112,344.48v1H96.654a.991.991,0,0,1-.99-.992v-2.494c0-3.854,2.856-6.981,6.38-6.981h11.13A6.674,6.674,0,0,1,119.548,341.766Z" transform="translate(-94.937 -310.027)" fill="none" stroke="#e4291b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+      <path id="Path_16215" data-name="Path 16215" d="M114.764,318.257v5.208a6.223,6.223,0,0,1-6.229,6.229h-.3A6.224,6.224,0,0,1,102,323.465v-5.21a1.567,1.567,0,0,0,.626-.166,1.615,1.615,0,0,0,.9-1.447,1.588,1.588,0,0,0-.154-.689.469.469,0,0,1,.246-.638,1.616,1.616,0,0,0,.409-2.716,5.8,5.8,0,0,1,3.8-1.409h1.118a5.8,5.8,0,0,1,3.787,1.4,1.615,1.615,0,0,0,.4,2.726.469.469,0,0,1,.244.638,1.6,1.6,0,0,0-.154.689,1.615,1.615,0,0,0,1.544,1.614Z" transform="translate(-95.777 -306.871)" fill="none" stroke="#e4291b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+      <path id="Path_16216" data-name="Path 16216" d="M118,316.846a1.637,1.637,0,0,1-.766,1.322,1.566,1.566,0,0,1-.8.246c-.038,0-.079,0-.117,0a1.614,1.614,0,0,1-1.545-1.614,1.6,1.6,0,0,1,.154-.689.471.471,0,0,0-.245-.639,1.617,1.617,0,0,1,.682-3.1,1.637,1.637,0,0,1,1.57,1.634,1.606,1.606,0,0,1-.156.671.468.468,0,0,0,.245.637A1.621,1.621,0,0,1,118,316.846Z" transform="translate(-97.327 -307.027)" fill="none" stroke="#e4291b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+      <path id="Path_16217" data-name="Path 16217" d="M104.335,313.985a1.616,1.616,0,0,1-.979,1.486.469.469,0,0,0-.246.638,1.614,1.614,0,0,1-.743,2.136,1.567,1.567,0,0,1-.626.166,1.225,1.225,0,0,1-.138,0,1.566,1.566,0,0,1-.837-.27,1.61,1.61,0,0,1,.252-2.833.468.468,0,0,0,.242-.638A1.579,1.579,0,0,1,101.1,314a1.634,1.634,0,0,1,1.568-1.634,1.619,1.619,0,0,1,1.662,1.616Z" transform="translate(-95.516 -307.027)" fill="none" stroke="#e4291b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+      <path id="Path_16218" data-name="Path 16218" d="M143.58,320.468a9.225,9.225,0,0,1-4.6,7.9,7.158,7.158,0,0,0,.645-3.052v-4.408c0-.11-.11-.494-.23-.475a3.975,3.975,0,0,1-.615.048,2.622,2.622,0,0,1-2.36-1.71c-.6,1.365-4.76,3.537-7.586.056a.354.354,0,0,0-.619.2v6.583a6.5,6.5,0,0,0,.669,2.944,9.246,9.246,0,0,1-4.922-8.086,9.439,9.439,0,0,1,7.581-9.079,2.54,2.54,0,0,0,4.453,0h0A9.441,9.441,0,0,1,143.58,320.468Z" transform="translate(-98.687 -306.897)" fill="none" stroke="#e4291b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+      <path id="Path_16219" data-name="Path 16219" d="M140.275,322.026v4.408a7.157,7.157,0,0,1-.645,3.052,5.661,5.661,0,0,1-.868,1.339,5.2,5.2,0,0,1-2.292,1.514,6.339,6.339,0,0,1-1.991.306,5.873,5.873,0,0,1-1.892-.3,5.285,5.285,0,0,1-3.05-2.667l0,0a6.489,6.489,0,0,1-.671-2.944v-6.583a.355.355,0,0,1,.619-.2c2.826,3.482,6.986,1.31,7.586-.055a2.622,2.622,0,0,0,2.36,1.71,3.987,3.987,0,0,0,.615-.048C140.165,321.533,140.275,321.916,140.275,322.026Z" transform="translate(-99.336 -308.015)" fill="none" stroke="#e4291b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+      <path id="Path_16220" data-name="Path 16220" d="M145.052,342.53v2.213a.922.922,0,0,1-.92.923H128.583v-3.714h-5.352a6.1,6.1,0,0,1,6.077-5.535h9.632A6.112,6.112,0,0,1,145.052,342.53Z" transform="translate(-98.59 -310.214)" fill="none" stroke="#e4291b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+      <path id="Path_16221" data-name="Path 16221" d="M123.9,364v2.543h-4.083v-2.422a6.277,6.277,0,0,0,1.7.231h.307A6.3,6.3,0,0,0,123.9,364Z" transform="translate(-98.138 -313.868)" fill="none" stroke="#e4291b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+      <path id="Path_16222" data-name="Path 16222" d="M132.275,374v3.531H109.082a1,1,0,0,1-1-1V374c0-3.9,2.893-7.07,6.463-7.07h11.271C129.382,366.929,132.275,370.094,132.275,374Z" transform="translate(-96.582 -314.257)" fill="none" stroke="#e4291b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+      <path id="Path_16223" data-name="Path 16223" d="M127.424,342.8v7.157H114.5v-4.442a2.713,2.713,0,0,1,2.712-2.714Z" transform="translate(-97.433 -311.059)" fill="none" stroke="#e4291b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+      <path id="Path_16224" data-name="Path 16224" d="M127.424,351.047v5.277a6.306,6.306,0,0,1-6.31,6.31h-.307a6.306,6.306,0,0,1-6.309-6.31v-5.277Z" transform="translate(-97.433 -312.152)" fill="none" stroke="#e4291b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+      <path id="Path_16225" data-name="Path 16225" d="M114.143,351.051V355.7a2.325,2.325,0,0,1,0-4.651Z" transform="translate(-97.078 -312.153)" fill="none" stroke="#e4291b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+      <path id="Path_16226" data-name="Path 16226" d="M131.724,353.376A2.325,2.325,0,0,1,129.4,355.7v-4.65A2.325,2.325,0,0,1,131.724,353.376Z" transform="translate(-99.407 -312.153)" fill="none" stroke="#e4291b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    </g>
+  </g>
+</svg>
